@@ -17,7 +17,7 @@ const BarGrid = styled(Grid)`
   padding: 1rem 0;
 `;
 
-const InfoBar = ({model = undefined}) => {
+const InfoBar = ({model = undefined, onBtnClick}) => {
     const navigate = useNavigate();
     const {inputs, filledInputs} = useContext(Context);
 
@@ -57,7 +57,7 @@ const InfoBar = ({model = undefined}) => {
                                 color="primary"
                                 disabled={!model && filledInputs !== inputs.length}
                                 fullWidth
-                                onClick={() => navigate("/model/2")}
+                                onClick={onBtnClick}
                             >
                                 {!model ? "Run Model" : "Save as PDF"}
                             </Button>

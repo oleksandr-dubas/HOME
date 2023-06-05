@@ -1,72 +1,33 @@
-import {Typography, useTheme} from '@mui/material';
-import {
-    Accordion,
-    AccordionItem,
-    AccordionItemHeading,
-    AccordionItemButton,
-    AccordionItemPanel,
-} from 'react-accessible-accordion';
+import {useRef} from 'react';
+import {useReactToPrint} from 'react-to-print';
+import html2pdf from 'html2pdf.js';
 import Layout from '../layout/Layout';
 import InfoBar from '../layout/InfoBar';
+import ResultToPrint from './ResultToPrint';
 
-const result = JSON.parse(require('../../files/output/model2_output.json'));
+const result = Object.values(JSON.parse(require('../../files/output/model2_output.json')))[0];
 
 const SuccessResult = ({model}) => {
-    const theme = useTheme();
+    const printRef = useRef();
 
-    const AccordionItemButtonStyle = {
-        backgroundColor: theme.palette.primary.light,
-    };
+    const handlePrint = useReactToPrint({
+        content: () => printRef.current,
+        documentTitle: `${model.name}.pdf`,
+        copyStyles: true,
+        print: async (printIframe) => {
+            const document = printIframe.contentDocument;
+            if (document) {
+                const html = document.getElementsByTagName('html')[0];
+                await html2pdf().from(html).save(`${model.name}.pdf`);
+            }
+        },
+    });
 
     return (
         <>
             <Layout home={false}/>
-            <InfoBar model={model}/>
-            <Accordion allowMultipleExpanded allowZeroExpanded>
-                <AccordionItem>
-                    <AccordionItemHeading>
-                        <AccordionItemButton style={AccordionItemButtonStyle}>
-                            <Typography variant="h4" sx={{display: "inline"}}>General Information</Typography>
-                        </AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <p>
-                            Exercitation in fugiat est ut ad ea cupidatat ut in
-                            cupidatat occaecat ut occaecat consequat est minim minim
-                            esse tempor laborum consequat esse adipisicing eu
-                            reprehenderit enim.
-                        </p>
-                    </AccordionItemPanel>
-                </AccordionItem>
-                <AccordionItem>
-                    <AccordionItemHeading>
-                        <AccordionItemButton style={AccordionItemButtonStyle}>
-                            <Typography variant="h4" sx={{display: "inline"}}>Referrals Information</Typography>
-                        </AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <p>
-                            In ad velit in ex nostrud dolore cupidatat consectetur
-                            ea in ut nostrud velit in irure cillum tempor laboris
-                            sed adipisicing eu esse duis nulla non.
-                        </p>
-                    </AccordionItemPanel>
-                </AccordionItem>
-                <AccordionItem>
-                    <AccordionItemHeading>
-                        <AccordionItemButton style={AccordionItemButtonStyle}>
-                            <Typography variant="h4" sx={{display: "inline"}}>New Shelters Recommendation</Typography>
-                        </AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <p>
-                            In ad velit in ex nostrud dolore cupidatat consectetur
-                            ea in ut nostrud velit in irure cillum tempor laboris
-                            sed adipisicing eu esse duis nulla non.
-                        </p>
-                    </AccordionItemPanel>
-                </AccordionItem>
-            </Accordion>
+            <InfoBar model={model} onBtnClick={handlePrint}/>
+            <ResultToPrint result={result} ref={printRef}/>
         </>
     );
 };
