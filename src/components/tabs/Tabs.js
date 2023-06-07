@@ -20,8 +20,8 @@ const BasicTabs = () => {
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 2, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="RHY Profiles" {...a11yProps(0)} />
-                    <Tab label="RHY Needs" {...a11yProps(1)} />
+                    <Tab label="Client Profiles" {...a11yProps(0)} />
+                    <Tab label="Client Needs" {...a11yProps(1)} />
                     <Tab label="Shelter Profiles" {...a11yProps(2)} />
                     <Tab label="Shelter Services" {...a11yProps(3)} />
                     <Tab label="Potential Shelter Profiles" {...a11yProps(4)} />
@@ -29,10 +29,10 @@ const BasicTabs = () => {
                 </Tabs>
             </Box>
             {value === 0 && <TabPanel index={0} file={"https://drive.google.com/uc?export=download&id=1ISJebmI6ocuVN15HyZptGcNPdjumLVz4"}>
-                RHY Profiles
+                Client Profiles
             </TabPanel>}
             {value === 1 && <TabPanel index={1} file={"https://drive.google.com/uc?export=download&id=1QMcerG8-Kofo4e4I8lvwXUS3yXOoKtMb"}>
-                RHY Needs
+                Client Needs
             </TabPanel>}
             {value === 2 && <TabPanel index={2} file={"https://drive.google.com/uc?export=download&id=1zMusxg9uUcWEOb0XB0125zgQqi8A90v-"}>
                 Shelter Profiles

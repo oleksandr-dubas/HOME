@@ -29,9 +29,10 @@ const Layout = ({home = true}) => {
                 <Grid item xs={6}>
                     <CenteredBox>
                         <Typography variant="h5">
-                            Quando ambulabat agendis admonere te qualis actio. Si ad corpus, quae plerumque
-                            Imaginare tecum in balineo quidam aquam fundes aliquod discrimen vituperiis usum alii
-                            furantur.
+                            Welcome to Version 1.0 of Housing Opportunities and Matching Estimator (HOME): An Interface
+                            for Homeless Youth Shelter Capacity Planning! By uploading client demographics,
+                            organizational profiles, and services HOME finds the
+                            optimal expansion plan for a region.
                         </Typography>
                     </CenteredBox>
                 </Grid>
